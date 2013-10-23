@@ -1,0 +1,53 @@
+Oracle 10g New Features
+-----------------------
+1) Error Log, Use
+   INSERT INTO dest
+   SELECT *
+   FROM   source
+   LOG ERRORS INTO err$_dest ('INSERT') REJECT LIMIT UNLIMITED;
+
+   UPDATE ..
+   DELETE ..
+   MERGE  ..
+
+
+Oracle 11g New Features
+-----------------------
+
+1) Result Cache
+2) Continue Statement
+   begin
+      for c1 in 1..100
+      loop
+         begin
+         exception
+         
+         when others then
+            comitune
+         end;   
+      end loop;
+
+3) VIRTUAL COLUMNS
+
+   CREATE TABLE employees (
+   id       NUMBER,
+   ename    VARCHAR2(10),
+   salary   NUMBER(9,2),
+   -- Virtual Columns
+   salary1  AS (ROUND(salary*(1+comm1/100),2)),
+   salary2  NUMBER GENERATED ALWAYS AS (ROUND(salary*(1+comm2/100),2)) VIRTUAL
+   );
+
+   * Virtual columns are not supported for index-organized, external, object, cluster, or temporary tables.   
+   * It can only refer to columns defined in the same table.
+   * Indexes defined against virtual columns are equivalent to function-based indexes.
+
+4) Dynamic SQL and the DBMS_SQL package 
+   now support dynamic SQL statements larger than 32 KB (CLOBS)
+   EXECUTE IMMEDIATE,
+   OPEN-FOR statement 
+   DBMS_SQL.PARSE
+
+5) DBMS_PARALLEL_EXECUTE
+
+6) Interval Partitioning
