@@ -1,13 +1,15 @@
 --===========================================================================================================
 -- TOPIC:   Oracle PL/SQL Built-In Package/Proc: OWA_UTIL.who_called_me
 --===========================================================================================================
-
+--
 -- NOTES: *  OWA_UTIL is a oracle supplied package, which provides various utility functions/Procs
 --        *  who_called_me procedure OUT PARAMETERS 
 --              OWNER of PL/SQL code that invoked OWA_UTIL.who_called_me
 --              NAME of the PL/SQL code. package.(procedure/function), NULL for anonymous block
 --              lineno where the call was made in the PL/SQL code
 --              caller_t the Object type of program
+--        *  To get the output MAKE SURE THIS is called in a wrapper.
+--
 --===========================================================================================================
 --
 -- FILE-NAME       : owa_util.who_called_me.sql
@@ -93,20 +95,20 @@ select tin_pkg.test_function from dual;
 --===========================================================================================================
 --
 -- FOOT NOTES: 1) Could be used in Logger packages and Auditing packages
---             2) To get error line number this is NOT ideal, use this instead
+--             2) In case of uisng this feature in LOGGERs, To get error line number 
+--                using the source_line_no from owa_util is NOT ideal, use the following instead
+--
    create or replace function get_line_number
    return number
    is
-      l_callstack   varchar2(10000);
+      l_callstack varchar2(20000);
    begin
       l_callstack := replace(dbms_utility.format_error_backtrace, chr(10),' ');
-      dbms_output.put_line(l_callstack);
       return substr(l_callstack,instr(l_callstack,' line ',-1,1)+ 6,10);
    exception
       when others then
          return null;
    end get_line_number;
-
 --
 --
 --===========================================================================================================
