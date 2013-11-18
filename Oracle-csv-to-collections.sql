@@ -43,7 +43,7 @@ end csv2stringcoll;
 ------------------------------------------
 -- Functions to convert CSV to Collections
 ------------------------------------------
-create or replace csv2intcoll
+create or replace function csv2intcoll
    (p_string      in varchar2, 
     p_separator   in varchar2 := ',')
 return id_tab
