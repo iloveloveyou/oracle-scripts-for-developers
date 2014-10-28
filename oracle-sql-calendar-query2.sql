@@ -1,5 +1,6 @@
 --
 -- Yet another oracle-sql-calendar-query
+-- How Good Am I in SQL? Only this much..
 -- Venkata Bhattaram / Tinitiate.com
 -- Prints the Month Calender
 -- 
